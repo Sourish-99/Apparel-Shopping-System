@@ -1,0 +1,190 @@
+CREATE TABLE tblproduct (
+ id int NOT NULL,
+ active varchar(100) DEFAULT NULL,
+ code varchar(5) DEFAULT NULL,
+ create_date date default sysdate not null,
+ description varchar(255) DEFAULT NULL,
+ image varchar(100) DEFAULT NULL,
+ image_name varchar(400) DEFAULT NULL,
+ name varchar(30) DEFAULT NULL,
+ price varchar(200) DEFAULT NULL,
+ mrp_price varchar(200) DEFAULT NULL,
+ product_category varchar(100) DEFAULT NULL,
+ PRIMARY KEY (id)
+) ;
+
+
+
+
+CREATE SEQUENCE SEQ_tblproduct;
+
+
+
+
+
+CREATE OR REPLACE TRIGGER TRG_T1
+BEFORE INSERT ON tblproduct
+FOR EACH ROW
+BEGIN
+    SELECT SEQ_tblproduct.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+/
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+
+CREATE TABLE tblcustomer (
+ id int NOT NULL,
+ address varchar(255) NOT NULL,
+ added_date date default sysdate not null,
+ email varchar(100) NOT NULL,
+ gender varchar(6) NOT NULL,
+ name varchar(50) NOT NULL,
+ password varchar(60) NOT NULL,
+ phone varchar(200) NOT NULL,
+ pin_code varchar(255) NOT NULL,
+ PRIMARY KEY (id)
+) ;
+
+
+
+
+CREATE SEQUENCE SEQ_tblcustomer;
+
+
+
+CREATE OR REPLACE TRIGGER TRG_T2
+BEFORE INSERT ON tblcustomer
+FOR EACH ROW
+BEGIN
+    SELECT SEQ_tblcustomer.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+/
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+CREATE TABLE tblcart (
+id int NOT NULL,
+discount_price varchar(200) DEFAULT NULL,
+quantity int NOT NULL,
+total_price varchar(200) DEFAULT NULL,
+customer_id int NOT NULL,
+product_id int NOT NULL,
+mrp_price varchar(200) DEFAULT NULL,
+PRIMARY KEY (id)
+) ;
+
+
+
+
+CREATE SEQUENCE SEQ_tblcart;
+
+
+
+CREATE OR REPLACE TRIGGER TRG_T3
+BEFORE INSERT ON tblcart
+FOR EACH ROW
+BEGIN
+    SELECT SEQ_tblcart.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+/
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+CREATE TABLE tblorders (
+ id int NOT NULL,
+ order_no int DEFAULT NULL,
+ customer_name varchar(200) DEFAULT NULL,
+ mobile_number varchar(100) DEFAULT NULL,
+ email_id varchar(100) DEFAULT NULL,
+ address varchar(400) DEFAULT NULL,
+ address_type varchar(100) DEFAULT NULL,
+ pincode varchar(100) DEFAULT NULL,
+ image varchar(200) DEFAULT NULL,
+ product_name varchar(400) DEFAULT NULL,
+ quantity int DEFAULT NULL,
+ product_price varchar(100) DEFAULT NULL,
+ product_selling_price varchar(100) DEFAULT NULL,
+ product_total_price varchar(100) DEFAULT NULL,
+ order_status varchar(100) DEFAULT NULL,
+ order_date date default sysdate not null,
+ payment_mode varchar(100) DEFAULT NULL,
+ payment_id int DEFAULT NULL,
+ PRIMARY KEY (id)
+) ;
+
+
+
+
+CREATE SEQUENCE SEQ_tblorders;
+
+
+
+CREATE OR REPLACE TRIGGER TRG_T4
+BEFORE INSERT ON tblorders
+FOR EACH ROW
+BEGIN
+    SELECT SEQ_tblorders.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+/
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+
+CREATE TABLE tbladmin (
+ id int NOT NULL,
+ added_date date NOT NULL,
+ email varchar(100) NOT NULL,
+ password varchar(100) NOT NULL,
+ name varchar(100) NOT NULL,
+ PRIMARY KEY (id)
+) ;
+
+
+
+CREATE SEQUENCE SEQ_tbladmin;
+
+
+
+CREATE OR REPLACE TRIGGER TRG_T5
+BEFORE INSERT ON tbladmin
+FOR EACH ROW
+BEGIN
+    SELECT SEQ_tbladmin.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+/
+
+
+
+INSERT INTO tbladmin(added_date,email,password,name) VALUES(sysdate, 'admin@gmail.com','admin','sb');
+
